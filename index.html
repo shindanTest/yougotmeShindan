@@ -143,7 +143,7 @@ footer div{max-width:760px;margin:0 auto;padding:24px 20px;font-size:.875rem;col
     <p>ボタンを押すとXの投稿画面が開きます。投稿前に内容を編集できます。</p>
     <p class="share-preview" id="r-preview"></p>
     <div class="actions">
-      <a class="btn x" id="r-share" href="https://x.com/intent/post" target="_blank" rel="noopener noreferrer">Xに投稿する（新しいタブで開きます）</a>
+      <a class="btn x" id="r-share" href="https://x.com/intent/post" target="_blank" rel="noopener noreferrer">Xに投稿する</a>
       <button type="button" class="btn outline" id="retry">もう一度チェックする</button>
     </div>
 
@@ -158,6 +158,9 @@ footer div{max-width:760px;margin:0 auto;padding:24px 20px;font-size:.875rem;col
 <script>
 (function(){
 "use strict";
+// 公開するページのURL。空欄の場合は、公開先で開いているページのURLを自動で使います。
+// 例：var SITE_URL="https://ユーザー名.github.io/リポジトリ名/";
+var SITE_URL="";
 var FACTORS=[
  {n:"白黒思考",d:"全か無でしか考えない",q:["曖昧な状況が苦手ではっきりさせたくなる","人間関係をリセットしたくなる","中途半端な結果では満足できない"]},
  {n:"過度の一般化",d:"1回の失敗を広げる",q:["一度の失敗で自信をなくしてしまう","嫌われたら次も嫌われると思う","ネガティブな事は未来も続くと感じる"]},
@@ -180,7 +183,8 @@ var LEVELS=[
 var RANGES=["96〜120点","71〜95点","46〜70点","0〜45点"];
 var QS=[];
 FACTORS.forEach(function(f,fi){f.q.forEach(function(t){QS.push({f:fi,t:t})})});
-var ans=new Array(QS.length).fill(null), cur=0;
+var ans=new Array(QS.length).fill(null), cur=0, shareText="";
+var WEB_INTENT="https://x.com/intent/post?text=";
 
 function $(id){return document.getElementById(id)}
 function show(id){
@@ -236,10 +240,11 @@ function renderResult(){
 
   var order=sc.map(function(s,i){return{i:i,s:s}}).sort(function(a,b){return b.s-a.s||a.i-b.i}).filter(function(o){return o.s>0}).slice(0,2);
   var top=order.length?"\n高めだった傾向："+order.map(function(o){return FACTORS[o.i].n+"（"+o.s+"/12）"}).join("、"):"";
-  var url=(location.protocol==="http:"||location.protocol==="https:")?location.origin+location.pathname:"";
+  var url=SITE_URL||((/^https?:$/.test(location.protocol)&&location.origin!=="null")?location.origin+location.pathname.replace(/index\.html$/,""):"");
   var text="認知のゆがみセルフチェックの結果\n合計 "+total+"/120点（"+L.label+"）"+top+"\n#認知のゆがみセルフチェック"+(url?"\n"+url:"");
   $("r-preview").textContent=text;
-  $("r-share").href="https://x.com/intent/post?text="+encodeURIComponent(text);
+  shareText=text;
+  $("r-share").href=WEB_INTENT+encodeURIComponent(text);
 }
 
 $("start").addEventListener("click",function(){
@@ -252,6 +257,24 @@ $("next").addEventListener("click",function(){
 });
 $("back").addEventListener("click",function(){
   if(cur>0){cur--;renderQ();window.scrollTo(0,0);focusEl($("q-text"))}
+});
+// スマホではXアプリの投稿画面を直接開く（アプリがなければWeb版へ）
+$("r-share").addEventListener("click",function(e){
+  var ua=navigator.userAgent||"";
+  var ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  var android=/Android/.test(ua);
+  if(!ios&&!android)return;
+  e.preventDefault();
+  var web=WEB_INTENT+encodeURIComponent(shareText), msg=encodeURIComponent(shareText);
+  if(android){
+    location.href="intent://post?message="+msg+"#Intent;scheme=twitter;package=com.twitter.android;S.browser_fallback_url="+encodeURIComponent(web)+";end";
+    return;
+  }
+  var t=setTimeout(function(){if(!document.hidden)location.href=web},1500);
+  function cancel(){clearTimeout(t)}
+  document.addEventListener("visibilitychange",function(){if(document.hidden)cancel()},{once:true});
+  window.addEventListener("pagehide",cancel,{once:true});
+  location.href="twitter://post?message="+msg;
 });
 $("retry").addEventListener("click",function(){
   cur=0;ans.fill(null);show("s-intro");focusEl($("t-intro"));
