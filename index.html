@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
+<meta name="color-scheme" content="light dark">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>認知のゆがみセルフチェック</title>
 <meta name="description" content="30問に答えて、10種類の認知のゆがみの傾向をセルフチェックできます。回答は端末内だけで処理され、送信・保存されません。">
@@ -14,7 +15,17 @@
   --text:#1a1a1a; --sub:#4d4d4d; --border:#8080808c; --line:#cccccc; --bg:#ffffff; --bg-soft:#f2f2f2;
   --primary:#0017c1; --primary-h:#00118f; --primary-a:#000071; --tint:#e8f1fe; --focus:#ffd43d;
   --warn-bg:#fff3e0; --warn-line:#b86200;
+  --on-primary:#ffffff; --x-bg:#1a1a1a; --x-h:#333333; --x-fg:#ffffff; --disabled:#767676;
+  color-scheme:light dark;
   --font:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+:root{
+  --text:#ffffff; --sub:#b8b8b8; --border:#8f8f8f; --line:#4d4d4d; --bg:#1a1a1a; --bg-soft:#2b2b2b;
+  --primary:#7b9cff; --primary-h:#a4bbff; --primary-a:#c5d3ff; --tint:#1d2a5c; --focus:#ffd43d;
+  --warn-bg:#3a2a12; --warn-line:#ffb74d;
+  --on-primary:#1a1a1a; --x-bg:#ffffff; --x-h:#d9d9d9; --x-fg:#1a1a1a; --disabled:#8a8a8a;
+}
 }
 *,*::before,*::after{box-sizing:border-box}
 html{font-size:100%}
@@ -36,14 +47,14 @@ p{margin:0 0 16px}
 .note.warn{background:var(--warn-bg);border-left-color:var(--warn-line)}
 .note p:last-child{margin:0}
 .note strong{display:block;margin-bottom:4px}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:8px 24px;border:2px solid var(--primary);border-radius:8px;background:var(--primary);color:#fff;font:inherit;font-weight:700;text-decoration:none;cursor:pointer}
-.btn:hover{background:var(--primary-h);border-color:var(--primary-h);color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:8px 24px;border:2px solid var(--primary);border-radius:8px;background:var(--primary);color:var(--on-primary);font:inherit;font-weight:700;text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--primary-h);border-color:var(--primary-h);color:var(--on-primary)}
 .btn:active{background:var(--primary-a);border-color:var(--primary-a)}
 .btn.outline{background:var(--bg);color:var(--primary)}
 .btn.outline:hover{background:var(--tint);color:var(--primary-h)}
-.btn.x{background:var(--text);border-color:var(--text)}
-.btn.x:hover{background:#333;border-color:#333}
-.btn[disabled]{background:var(--bg-soft);border-color:var(--line);color:#767676;cursor:not-allowed;text-decoration:line-through}
+.btn.x{background:var(--x-bg);border-color:var(--x-bg);color:var(--x-fg)}
+.btn.x:hover{background:var(--x-h);border-color:var(--x-h);color:var(--x-fg)}
+.btn[disabled]{background:var(--bg-soft);border-color:var(--line);color:var(--disabled);cursor:not-allowed;text-decoration:line-through}
 .actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:24px}
 .progress-label{display:flex;justify-content:space-between;font-weight:700;margin-bottom:8px}
 progress{width:100%;height:12px;appearance:none;border:0;border-radius:6px;background:var(--line);overflow:hidden;display:block;margin-bottom:32px}
@@ -66,7 +77,7 @@ legend{font-size:1.375rem;font-weight:700;line-height:1.6;padding:0;margin-botto
 .score b{font-size:3.5rem;line-height:1.1;color:var(--primary)}
 .score span{font-size:1.25rem}
 .badge{display:inline-block;padding:2px 12px;border:2px solid var(--text);border-radius:6px;font-weight:700;font-size:.9375rem;background:var(--bg);white-space:nowrap}
-.badge.high{background:var(--text);color:#fff}
+.badge.high{background:var(--text);color:var(--bg)}
 .badge.mid{background:var(--bg-soft)}
 .scale{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:.9375rem}
 .scale caption{text-align:left;font-weight:700;padding-bottom:8px}
