@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>認知のゆがみセルフチェック</title>
+<meta name="description" content="30問に答えて、10種類の認知のゆがみの傾向をセルフチェックできます。回答は端末内だけで処理され、送信・保存されません。">
+<meta property="og:title" content="認知のゆがみセルフチェック">
+<meta property="og:description" content="30問に答えて、10種類の認知のゆがみの傾向をセルフチェック。回答は送信・保存されません。">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<style>
+:root{
+  --text:#1a1a1a; --sub:#4d4d4d; --border:#8080808c; --line:#cccccc; --bg:#ffffff; --bg-soft:#f2f2f2;
+  --primary:#0017c1; --primary-h:#00118f; --primary-a:#000071; --tint:#e8f1fe; --focus:#ffd43d;
+  --warn-bg:#fff3e0; --warn-line:#b86200;
+  --font:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{font-size:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:1rem;line-height:1.7;letter-spacing:.02em;-webkit-text-size-adjust:100%}
+a{color:var(--primary);text-underline-offset:.2em}
+a:hover{color:var(--primary-h);text-decoration-thickness:3px}
+:focus-visible{outline:2px solid var(--text);outline-offset:2px;box-shadow:0 0 0 4px var(--focus);border-radius:4px}
+.skip{position:absolute;left:8px;top:-60px;background:var(--bg);padding:8px 16px;z-index:10}
+.skip:focus{top:8px}
+header.site{border-bottom:1px solid var(--line);background:var(--bg)}
+header.site div{max-width:760px;margin:0 auto;padding:16px 20px;font-weight:700;font-size:1.125rem}
+main{max-width:760px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:2rem;line-height:1.4;margin:0 0 16px;letter-spacing:.01em}
+h2{font-size:1.5rem;line-height:1.5;margin:40px 0 12px}
+h1:focus,h2:focus{outline:none}
+p{margin:0 0 16px}
+.lead{font-size:1.125rem}
+.note{background:var(--bg-soft);border-left:8px solid var(--sub);padding:16px 20px;margin:24px 0}
+.note.warn{background:var(--warn-bg);border-left-color:var(--warn-line)}
+.note p:last-child{margin:0}
+.note strong{display:block;margin-bottom:4px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:8px 24px;border:2px solid var(--primary);border-radius:8px;background:var(--primary);color:#fff;font:inherit;font-weight:700;text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--primary-h);border-color:var(--primary-h);color:#fff}
+.btn:active{background:var(--primary-a);border-color:var(--primary-a)}
+.btn.outline{background:var(--bg);color:var(--primary)}
+.btn.outline:hover{background:var(--tint);color:var(--primary-h)}
+.btn.x{background:var(--text);border-color:var(--text)}
+.btn.x:hover{background:#333;border-color:#333}
+.btn[disabled]{background:var(--bg-soft);border-color:var(--line);color:#767676;cursor:not-allowed;text-decoration:line-through}
+.actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:24px}
+.progress-label{display:flex;justify-content:space-between;font-weight:700;margin-bottom:8px}
+progress{width:100%;height:12px;appearance:none;border:0;border-radius:6px;background:var(--line);overflow:hidden;display:block;margin-bottom:32px}
+progress::-webkit-progress-bar{background:var(--line)}
+progress::-webkit-progress-value{background:var(--primary)}
+progress::-moz-progress-bar{background:var(--primary)}
+fieldset{border:0;margin:0;padding:0}
+legend{font-size:1.375rem;font-weight:700;line-height:1.6;padding:0;margin-bottom:8px}
+.hint{color:var(--sub);margin-bottom:20px}
+.opt{display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 16px;margin-bottom:12px;border:1px solid var(--border);border-radius:8px;cursor:pointer;background:var(--bg)}
+.opt:hover{background:var(--tint);border-color:var(--primary)}
+.opt:has(input:checked){border:2px solid var(--primary);background:var(--tint);padding:9px 15px;font-weight:700}
+.opt input{appearance:none;flex:none;width:24px;height:24px;margin:0;border:2px solid var(--text);border-radius:50%;background:var(--bg);display:grid;place-content:center}
+.opt input::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--primary);transform:scale(0)}
+.opt input:checked{border-color:var(--primary)}
+.opt input:checked::before{transform:scale(1)}
+.opt:has(input:focus-visible){outline:2px solid var(--text);outline-offset:2px;box-shadow:0 0 0 4px var(--focus)}
+.opt input:focus-visible{outline:none;box-shadow:none}
+.score{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:8px 0}
+.score b{font-size:3.5rem;line-height:1.1;color:var(--primary)}
+.score span{font-size:1.25rem}
+.badge{display:inline-block;padding:2px 12px;border:2px solid var(--text);border-radius:6px;font-weight:700;font-size:.9375rem;background:var(--bg);white-space:nowrap}
+.badge.high{background:var(--text);color:#fff}
+.badge.mid{background:var(--bg-soft)}
+.scale{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:.9375rem}
+.scale caption{text-align:left;font-weight:700;padding-bottom:8px}
+.scale th,.scale td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left}
+.scale tr.cur{background:var(--tint);font-weight:700}
+.f{border-top:1px solid var(--line);padding:16px 0}
+.f-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.f h3{font-size:1.125rem;margin:0}
+.f small{display:block;color:var(--sub);font-size:.875rem}
+.bar{height:16px;border:1px solid var(--text);border-radius:8px;background:var(--bg);margin-top:10px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--primary)}
+.f .sc{font-weight:700;margin-top:6px}
+.share-preview{white-space:pre-wrap;background:var(--bg-soft);border:1px solid var(--line);border-radius:8px;padding:16px;margin:12px 0 0;font-size:.9375rem}
+footer{border-top:1px solid var(--line);background:var(--bg-soft)}
+footer div{max-width:760px;margin:0 auto;padding:24px 20px;font-size:.875rem;color:var(--sub)}
+[hidden]{display:none!important}
+@media (max-width:480px){h1{font-size:1.625rem}legend{font-size:1.25rem}.score b{font-size:3rem}.btn{width:100%}}
+@media (prefers-reduced-motion:no-preference){.opt input::before{transition:transform .12s}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="site"><div>認知のゆがみセルフチェック</div></header>
+
+<main id="main">
+  <!-- 開始画面 -->
+  <section id="s-intro" aria-labelledby="t-intro">
+    <h1 id="t-intro" tabindex="-1">認知のゆがみセルフチェック</h1>
+    <p class="lead">30の質問に答えて、10種類の「認知のゆがみ」の傾向を確認します。所要時間は約5分です。</p>
+    <p>ふだんの自分に近いものを、直感で選んでください。正解や不正解はありません。</p>
+    <div class="note">
+      <p><strong>プライバシーについて</strong>回答と結果はこの端末の中だけで処理され、送信も保存もされません。</p>
+    </div>
+    <div class="note warn">
+      <p><strong>ご利用にあたって</strong>このチェックは自己理解のための目安であり、医療上の診断ではありません。つらい気持ちが続くときは、医療機関や身近な相談窓口に相談してください。</p>
+    </div>
+    <div class="actions"><button type="button" class="btn" id="start">チェックを始める</button></div>
+  </section>
+
+  <!-- 質問画面 -->
+  <section id="s-q" aria-label="質問" hidden>
+    <div class="progress-label"><span id="q-count" aria-live="polite"></span><span id="q-pct"></span></div>
+    <progress id="q-prog" max="30" value="0" aria-label="回答の進み具合"></progress>
+    <form id="q-form" novalidate onsubmit="return false">
+      <fieldset>
+        <legend id="q-text" tabindex="-1"></legend>
+        <p class="hint">ふだんの自分にどのくらい当てはまりますか。</p>
+        <div id="q-opts"></div>
+      </fieldset>
+      <div class="actions">
+        <button type="button" class="btn outline" id="back">前の質問へ戻る</button>
+        <button type="button" class="btn" id="next" disabled>次の質問へ</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- 結果画面 -->
+  <section id="s-r" aria-labelledby="t-r" hidden>
+    <h1 id="t-r" tabindex="-1">チェック結果</h1>
+    <h2 style="margin-top:8px">全体スコア</h2>
+    <div class="score"><b id="r-total"></b><span>/ 120点</span><span class="badge" id="r-level"></span></div>
+    <p id="r-desc"></p>
+    <table class="scale">
+      <caption>全体スコアの目安（30問の合計点）</caption>
+      <thead><tr><th scope="col">合計点</th><th scope="col">評価</th></tr></thead>
+      <tbody id="r-scale"></tbody>
+    </table>
+
+    <h2>10の傾向ごとのスコア</h2>
+    <p>各傾向は0〜12点です。10〜12点は「強い」、7〜9点は「中程度」、0〜6点は「少ない」と表示します。</p>
+    <div id="r-factors"></div>
+
+    <h2>結果をXで共有する</h2>
+    <p>ボタンを押すとXの投稿画面が開きます。投稿前に内容を編集できます。</p>
+    <p class="share-preview" id="r-preview"></p>
+    <div class="actions">
+      <a class="btn x" id="r-share" href="https://x.com/intent/post" target="_blank" rel="noopener noreferrer">Xに投稿する（新しいタブで開きます）</a>
+      <button type="button" class="btn outline" id="retry">もう一度チェックする</button>
+    </div>
+
+    <div class="note warn" style="margin-top:40px">
+      <p><strong>この結果について</strong>この結果は、そのときの気分や状況によって変わります。点数が高いからといって、病気であることを意味するものではありません。気になることや苦しさが続くときは、医療機関や相談窓口に相談してください。</p>
+    </div>
+  </section>
+</main>
+
+<footer><div>回答内容はサーバーに送信されません。診断・治療を目的としたものではありません。</div></footer>
+
+<script>
+(function(){
+"use strict";
+var FACTORS=[
+ {n:"白黒思考",d:"全か無でしか考えない",q:["曖昧な状況が苦手ではっきりさせたくなる","人間関係をリセットしたくなる","中途半端な結果では満足できない"]},
+ {n:"過度の一般化",d:"1回の失敗を広げる",q:["一度の失敗で自信をなくしてしまう","嫌われたら次も嫌われると思う","ネガティブな事は未来も続くと感じる"]},
+ {n:"選択的知覚",d:"悪い面ばかり見る",q:["自分の嫌なところばかりが目に付く","否定的な言葉だけが印象に残る","嫌な出来事を何度も思い出す"]},
+ {n:"ポジティブ否定",d:"良い面を認めない",q:["成功してもたまたまだと思う","褒められても素直に喜べない","楽しいことがあっても素直に喜べない"]},
+ {n:"心の読みすぎ癖",d:"根拠なく決めつける",q:["周りから悪く評価されている気がする","何かと批判された気がしてしまう","相手の気持ちを考えすぎて疲れる"]},
+ {n:"拡大・縮小",d:"失敗を大きく成功を小さく",q:["自分の欠点を大きく考えてしまう","うまくいっても大したことないと思う","周りは自分よりうまく行っていると思う"]},
+ {n:"感情的決めつけ",d:"気分＝事実と思う",q:["不安なときは悪いことが起きると考える","落ち込むと自分はダメだと感じる","嫌な予感がすると、現実になる気がする"]},
+ {n:"「〜すべき」思考",d:"厳しいルール",q:["失敗してはいけないと思う","「絶対」「すべき」という言葉をよく使う","常に何かをしなくてはならない感覚がある"]},
+ {n:"ラベリング",d:"自分や他人にレッテルを貼る",q:["失敗すると「自分はだめな人間だ」と思う","他人を「〇〇な人」と大雑把に評価する","苦手なことがあると才能がないと感じる"]},
+ {n:"自己関連づけ",d:"何でも自分と結びつける",q:["他人の問題も自分が直さなければと感じる","他人の機嫌が悪いと自分のせいだと感じる","誰かが無口になると自分が何かしたと感じる"]}
+];
+var CHOICES=["全く当てはまらない","あまり当てはまらない","どちらともいえない","やや当てはまる","よく当てはまる"];
+var LEVELS=[
+ {min:96,label:"非常に強い",desc:"認知のゆがみの傾向が非常に強く出ています。考え方のクセが、日々の気持ちに大きく影響している可能性があります。"},
+ {min:71,label:"やや強い",desc:"認知のゆがみの傾向がやや強く出ています。ものごとの受け取り方が、気持ちに影響している場面があるかもしれません。"},
+ {min:46,label:"少しあり",desc:"認知のゆがみの傾向が少し見られます。多くの人にある程度見られる範囲です。"},
+ {min:0,label:"少ない",desc:"認知のゆがみの傾向は少ない結果でした。"}
+];
+var RANGES=["96〜120点","71〜95点","46〜70点","0〜45点"];
+var QS=[];
+FACTORS.forEach(function(f,fi){f.q.forEach(function(t){QS.push({f:fi,t:t})})});
+var ans=new Array(QS.length).fill(null), cur=0;
+
+function $(id){return document.getElementById(id)}
+function show(id){
+  ["s-intro","s-q","s-r"].forEach(function(s){$(s).hidden=(s!==id)});
+  window.scrollTo(0,0);
+}
+function focusEl(el){el.focus({preventScroll:true})}
+
+function renderQ(){
+  var q=QS[cur], n=cur+1;
+  $("q-count").textContent="質問 "+n+" / "+QS.length;
+  $("q-pct").textContent=Math.round((cur/QS.length)*100)+"%";
+  $("q-prog").value=cur;
+  $("q-text").textContent=n+". "+q.t;
+  var h="";
+  CHOICES.forEach(function(c,i){
+    h+='<label class="opt"><input type="radio" name="a" value="'+i+'"'+(ans[cur]===i?" checked":"")+'><span>'+c+'</span></label>';
+  });
+  $("q-opts").innerHTML=h;
+  $("next").disabled=(ans[cur]===null);
+  $("next").textContent=(cur===QS.length-1)?"結果を見る":"次の質問へ";
+  $("back").hidden=(cur===0);
+  Array.prototype.forEach.call($("q-opts").querySelectorAll("input"),function(r){
+    r.addEventListener("change",function(){ans[cur]=+r.value;$("next").disabled=false});
+  });
+}
+
+function levelOf(total){for(var i=0;i<LEVELS.length;i++)if(total>=LEVELS[i].min)return i}
+function fLevel(s){return s>=10?{k:"high",l:"強い"}:s>=7?{k:"mid",l:"中程度"}:{k:"low",l:"少ない"}}
+
+function renderResult(){
+  var sc=FACTORS.map(function(f,fi){
+    var s=0;QS.forEach(function(q,i){if(q.f===fi)s+=ans[i]});return s;
+  });
+  var total=sc.reduce(function(a,b){return a+b},0);
+  var li=levelOf(total), L=LEVELS[li];
+  $("r-total").textContent=total;
+  $("r-level").textContent="認知のゆがみ："+L.label;
+  $("r-desc").textContent=L.desc;
+  var sh="";
+  LEVELS.forEach(function(l,i){
+    sh+='<tr'+(i===li?' class="cur" aria-current="true"':"")+'><td>'+RANGES[i]+'</td><td>'+l.label+(i===li?"（あなたの結果）":"")+'</td></tr>';
+  });
+  $("r-scale").innerHTML=sh;
+  var fh="";
+  FACTORS.forEach(function(f,i){
+    var lv=fLevel(sc[i]);
+    fh+='<div class="f"><div class="f-head"><h3>'+f.n+'<small>'+f.d+'</small></h3><span class="badge '+lv.k+'">'+lv.l+'</span></div>'
+      +'<div class="bar" role="img" aria-label="'+f.n+' '+sc[i]+'点（12点満点）"><i style="width:'+(sc[i]/12*100)+'%"></i></div>'
+      +'<div class="sc">'+sc[i]+' / 12点</div></div>';
+  });
+  $("r-factors").innerHTML=fh;
+
+  var order=sc.map(function(s,i){return{i:i,s:s}}).sort(function(a,b){return b.s-a.s||a.i-b.i}).filter(function(o){return o.s>0}).slice(0,2);
+  var top=order.length?"\n高めだった傾向："+order.map(function(o){return FACTORS[o.i].n+"（"+o.s+"/12）"}).join("、"):"";
+  var url=(location.protocol==="http:"||location.protocol==="https:")?location.origin+location.pathname:"";
+  var text="認知のゆがみセルフチェックの結果\n合計 "+total+"/120点（"+L.label+"）"+top+"\n#認知のゆがみセルフチェック"+(url?"\n"+url:"");
+  $("r-preview").textContent=text;
+  $("r-share").href="https://x.com/intent/post?text="+encodeURIComponent(text);
+}
+
+$("start").addEventListener("click",function(){
+  cur=0;ans.fill(null);show("s-q");renderQ();focusEl($("q-text"));
+});
+$("next").addEventListener("click",function(){
+  if(ans[cur]===null)return;
+  if(cur<QS.length-1){cur++;renderQ();window.scrollTo(0,0);focusEl($("q-text"))}
+  else{renderResult();show("s-r");focusEl($("t-r"))}
+});
+$("back").addEventListener("click",function(){
+  if(cur>0){cur--;renderQ();window.scrollTo(0,0);focusEl($("q-text"))}
+});
+$("retry").addEventListener("click",function(){
+  cur=0;ans.fill(null);show("s-intro");focusEl($("t-intro"));
+});
+})();
+</script>
+</body>
+</html>
